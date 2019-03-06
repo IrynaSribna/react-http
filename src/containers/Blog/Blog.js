@@ -7,19 +7,25 @@ import NewPost from '../../components/NewPost/NewPost';
 import './Blog.css';
 
 class Blog extends Component {
+    state = {
+        posts: []
+    }
     componentDidMount() {
         axios.get('https://jsonplaceholder.typicode.com/posts') //get returns Promise
         .then(response => {
-            console.log(response)
+            this.setState ({posts: response.data}); //we cannot call it after axios.get
+            //because javaScipt will not wait till this call gets finished
+            //console.log(response)
         });
     }
     render () {
+        const posts = this.state.posts.map(post => {
+            return <Post key={post.id} title={post.title}/>;
+        })
         return (
             <div>
                 <section className="Posts">
-                    <Post />
-                    <Post />
-                    <Post />
+                    {posts}
                 </section>
                 <section>
                     <FullPost />
