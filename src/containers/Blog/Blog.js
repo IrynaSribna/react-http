@@ -13,14 +13,20 @@ class Blog extends Component {
     componentDidMount() {
         axios.get('https://jsonplaceholder.typicode.com/posts') //get returns Promise
         .then(response => {
-            this.setState ({posts: response.data}); //we cannot call it after axios.get
+            const posts = response.data.slice(0, 4);
+            const updatedPosts = posts.map(post => {
+                return {
+                    ...post,
+                    author: 'Iryna'
+                }
+            })
+            this.setState ({posts: updatedPosts}); //we cannot call it after axios.get
             //because javaScipt will not wait till this call gets finished
-            //console.log(response)
         });
     }
     render () {
         const posts = this.state.posts.map(post => {
-            return <Post key={post.id} title={post.title}/>;
+            return <Post key={post.id} title={post.title} author={post.author} />;
         })
         return (
             <div>
