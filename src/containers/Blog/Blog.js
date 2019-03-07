@@ -9,10 +9,11 @@ import './Blog.css';
 class Blog extends Component {
     state = {
         posts: [],
-        selectedPostId: null
+        selectedPostId: null,
+        error: null
     }
     componentDidMount() {
-        axios.get('https://jsonplaceholder.typicode.com/posts') //get returns Promise
+        axios.get('https://jsonplaceholder.typicode.com/postsssss') //get returns Promise
         .then(response => {
             const posts = response.data.slice(0, 4);
             const updatedPosts = posts.map(post => {
@@ -23,6 +24,10 @@ class Blog extends Component {
             })
             this.setState ({posts: updatedPosts}); //we cannot call it after axios.get
             //because javaScipt will not wait till this call gets finished
+        })
+        .catch(error => {
+            console.log(error);
+            this.setState({error: true});
         });
     }
 
@@ -31,13 +36,16 @@ class Blog extends Component {
     }
 
     render () {
-        const posts = this.state.posts.map(post => {
-            return <Post 
-                key={post.id} 
-                title={post.title} 
-                author={post.author} 
-                clicked={() => this.postSelectedHandler(post.id)}/>;
-        })
+        let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>
+        if (!this.state.error) {
+            posts = this.state.posts.map(post => {
+                return <Post 
+                    key={post.id} 
+                    title={post.title} 
+                    author={post.author} 
+                    clicked={() => this.postSelectedHandler(post.id)}/>;
+            })
+        }
         return (
             <div>
                 <section className="Posts">
