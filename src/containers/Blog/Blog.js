@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 //import axios from 'axios';
-import axios from '../../axios'
+import axios from '../../axios';
+import Posts from './Posts/Posts';
 
-
-import Post from '../../components/Post/Post';
 import './Blog.css';
 
 class Blog extends Component {
-    state = {
-        posts: [],
-        selectedPostId: null,
-        error: null
-    }
+
     componentDidMount() {
         axios.get('/posts') //get returns Promise
         .then(response => {
@@ -36,16 +31,7 @@ class Blog extends Component {
     }
 
     render () {
-        let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>
-        if (!this.state.error) {
-            posts = this.state.posts.map(post => {
-                return <Post 
-                    key={post.id} 
-                    title={post.title} 
-                    author={post.author} 
-                    clicked={() => this.postSelectedHandler(post.id)}/>;
-            })
-        }
+        
         return (
             <div className="Blog">
                 <header>
@@ -57,9 +43,7 @@ class Blog extends Component {
                     </nav>
                 </header>
 
-                <section className="Posts">
-                    {posts}
-                </section>
+            <Posts />
                 
             </div>
         );
