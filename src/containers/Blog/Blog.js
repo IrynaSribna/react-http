@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import axios from 'axios';
 import axios from '../../axios';
 import Posts from './Posts/Posts';
+import { Route } from 'react-router-dom';
 
 import './Blog.css';
 
@@ -43,6 +44,12 @@ class Blog extends Component {
                     </nav>
                 </header>
 
+            {/* only routes that have exact path="/" will get Home rendered as a content.
+             In our case it is Home link  */}
+            <Route path="/" exact render={() => <h1>Home </h1>}/>
+            {/* all routes started with / will get the Home 2 content rendered. In our case it is when
+             to click either Home or New Post */}
+            <Route path="/" render={() => <h1>Home 2 </h1>}/> 
             <Posts />
                 
             </div>
