@@ -46,11 +46,11 @@ class Blog extends Component {
 
             {/* only routes that have exact path="/" will get Home rendered as a content.
              In our case it is Home link  */}
-            <Route path="/" exact render={() => <h1>Home </h1>}/>
+            {/*<Route path="/" exact render={() => <h1>Home </h1>}/> */}
             {/* all routes started with / will get the Home 2 content rendered. In our case it is when
              to click either Home or New Post */}
-            <Route path="/" render={() => <h1>Home 2 </h1>}/> 
-            <Posts />
+            {/*<Route path="/" render={() => <h1>Home 2 </h1>}/> */}
+            <Route path="/" exact component={Posts} />
                 
             </div>
         );
