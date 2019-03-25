@@ -8,14 +8,15 @@ class FullPost extends Component {
         loadedPost: null
     }
 
-    componentDidUpdate () {
-        if (this.props.id) {
+    componentDidMount () {
+        console.log(this.props)
+        if (this.props.match.params.postId) {
             //the if below is needed so that componentDidUpdate is not loaded
             // in the infinite loop of request but only if we select a new post (this can be seen in the Network tab)
             if (!this.state.loadedPost 
                 || (this.state.loadedPost 
                     && this.state.loadedPost.id !== this.props.id)) {
-                axios.get('/posts/' + this.props.id)
+                axios.get('/posts/' + this.props.match.params.postId)
                     .then(response => {
                         this.setState({loadedPost: response.data})
                     });
@@ -24,7 +25,7 @@ class FullPost extends Component {
     }
 
     deletePostHandler = () => {
-        axios.delete('/posts/' + this.props.id)
+        axios.delete('/posts/' + this.props.match.params.postId)
             .then(response => {
                 console.log(response);
             });
