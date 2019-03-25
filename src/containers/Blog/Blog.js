@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Posts from './Posts/Posts';
-import { Route, NavLink } from 'react-router-dom';
+import { Route, NavLink, Switch } from 'react-router-dom';
 import NewPost from './NewPost/NewPost';
 import FullPost from './FullPost/FullPost';
 
@@ -37,10 +37,12 @@ class Blog extends Component {
             {/* all routes started with / will get the Home 2 content rendered. In our case it is when
              to click either Home or New Post */}
             {/*<Route path="/" render={() => <h1>Home 2 </h1>}/> */}
-            <Route path="/" exact component={Posts} />
-            <Route path="/new-post" component={NewPost} />
-            {/* :postId should be the last as it can intefier with other Routes */}
-            <Route path="/:postId" component={FullPost} />
+            <Switch> {/* Switch will load only one Route at a time, not all of them one after another */}
+                <Route path="/" exact component={Posts} />
+                <Route path="/new-post" component={NewPost} />
+                {/* :postId should be the last as it can intefier with other Routes */}
+                <Route path="/:postId" component={FullPost} />
+            </Switch>
                 
             </div>
         );
