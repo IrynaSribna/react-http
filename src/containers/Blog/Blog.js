@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Posts from './Posts/Posts';
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import NewPost from './NewPost/NewPost';
 
 import './Blog.css';
@@ -39,6 +39,7 @@ class Blog extends Component {
             <Switch> {/* Switch will load only one Route at a time, not all of them one after another */}
                 <Route path="/posts" component={Posts} />
                 <Route path="/new-post" component={NewPost} />
+                <Redirect from="/" to="/posts" />"
             </Switch>
                 
             </div>
