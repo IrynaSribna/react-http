@@ -43,7 +43,8 @@ class Blog extends Component {
             <Switch> {/* Switch will load only one Route at a time, not all of them one after another */}
                 <Route path="/posts" component={Posts} />
                 {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
-                <Redirect from="/" to="/posts" />"
+                <Route render={() => <h1>Not FOUND!</h1>}/>
+                {/* <Redirect from="/" to="/posts" />" */}
             </Switch>
                 
             </div>
