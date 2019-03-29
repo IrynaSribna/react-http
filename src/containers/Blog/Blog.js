@@ -6,6 +6,10 @@ import NewPost from './NewPost/NewPost';
 import './Blog.css';
 
 class Blog extends Component {
+    state = {
+        auth: false
+    }
+
     render () {
         return (
             <div className="Blog">
@@ -38,7 +42,7 @@ class Blog extends Component {
             {/*<Route path="/" render={() => <h1>Home 2 </h1>}/> */}
             <Switch> {/* Switch will load only one Route at a time, not all of them one after another */}
                 <Route path="/posts" component={Posts} />
-                <Route path="/new-post" component={NewPost} />
+                {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
                 <Redirect from="/" to="/posts" />"
             </Switch>
                 
