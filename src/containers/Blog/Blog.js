@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import Posts from './Posts/Posts';
-import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
-import NewPost from './NewPost/NewPost';
-
 import './Blog.css';
+import { Route, NavLink, Switch } from 'react-router-dom';
+//import NewPost from './NewPost/NewPost';
+import asyncComponent from '../../hoc/asyncComponent';
+
+const AsyncNewPost = asyncComponent(() => {
+    return import('./NewPost/NewPost');
+});
 
 class Blog extends Component {
     state = {
-        auth: false
+        auth: true
     }
 
     render () {
@@ -42,7 +46,7 @@ class Blog extends Component {
             {/*<Route path="/" render={() => <h1>Home 2 </h1>}/> */}
             <Switch> {/* Switch will load only one Route at a time, not all of them one after another */}
                 <Route path="/posts" component={Posts} />
-                {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
+                {this.state.auth ? <Route path="/new-post" component={AsyncNewPost} /> : null}
                 <Route render={() => <h1>Not FOUND!</h1>}/>
                 {/* <Redirect from="/" to="/posts" />" */}
             </Switch>
